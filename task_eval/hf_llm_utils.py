@@ -5,10 +5,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 import random
 import os, json
 from tqdm import tqdm
-import time
-import argparse
-from task_eval.evaluation import eval_question_answering
-from task_eval.evaluation_stats import analyze_acc
 from transformers import AutoTokenizer
 import transformers
 import torch
@@ -95,7 +91,7 @@ ANS_TOKENS_PER_QUES = 50
 def run_mistral(pipeline, question, data, tokenizer, args):
 
     question_prompt =  QA_PROMPT.format(question)
-    query_conv = get_input_context(data, MISTRAL_INSTRUCT_SYSTEM_PROMPT.format(question_prompt), tokenizer, args)
+    query_conv = get_input_context(data['conversation'], MISTRAL_INSTRUCT_SYSTEM_PROMPT.format(question_prompt), tokenizer, args)
 
     # without chat_template
     # query = MISTRAL_INSTRUCT_SYSTEM_PROMPT.format(query_conv + '\n\n' + question_prompt)
@@ -121,7 +117,7 @@ def run_mistral(pipeline, question, data, tokenizer, args):
 def run_gemma(pipeline, question, data, tokenizer, args):
 
     question_prompt =  QA_PROMPT.format(question)
-    query_conv = get_input_context(data, GEMMA_INSTRUCT_PROMPT.format(question_prompt), tokenizer, args)
+    query_conv = get_input_context(data['conversation'], GEMMA_INSTRUCT_PROMPT.format(question_prompt), tokenizer, args)
 
     # without chat_template
     # query = MISTRAL_INSTRUCT_SYSTEM_PROMPT.format(query_conv + '\n\n' + question_prompt)
@@ -147,7 +143,7 @@ def run_gemma(pipeline, question, data, tokenizer, args):
 def run_llama(pipeline, question, data, tokenizer, args):
 
     question_prompt =  QA_PROMPT.format(question)
-    query_conv = get_input_context(data, LLAMA3_CHAT_SYSTEM_PROMPT.format(question_prompt), tokenizer, args)
+    query_conv = get_input_context(data['conversation'], LLAMA3_CHAT_SYSTEM_PROMPT.format(question_prompt), tokenizer, args)
 
     # without chat_template
     # query = MISTRAL_INSTRUCT_SYSTEM_PROMPT.format(query_conv + '\n\n' + question_prompt)
@@ -169,34 +165,6 @@ def run_llama(pipeline, question, data, tokenizer, args):
                         num_return_sequences=1,
                         )
     return sequences[0]['generated_text']
-
-
-def save_eval(data_file, accs, key='exact_match'):
-
-    data = json.load(open(data_file))
-    assert len(data['qa']) == len(accs), (len(data['qa']), len(accs), accs)
-    if os.path.exists(data_file.replace('.json', '_scores.json')):
-        data = json.load(open(data_file.replace('.json', '_scores.json')))
-    for i in range(0, len(data['qa'])):
-        data['qa'][i][key] = accs[i]
-    with open(data_file.replace('.json', '_scores.json'), 'w') as f:
-        json.dump(data, f, indent=2)
-
-
-def parse_args():
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--out-dir', required=True, type=str)
-    parser.add_argument('--model', required=True, type=str)
-    parser.add_argument('--data-dir', type=str, required=True)
-    parser.add_argument('--openai-key-file', type=str, default='')
-    parser.add_argument('--use-rag', action="store_true")
-    parser.add_argument('--use-4bit', action="store_true")
-    parser.add_argument('--batch-size', default=1, type=int)
-    parser.add_argument('--rag-mode', type=str, default="")
-    parser.add_argument('--overwrite', action="store_true")
-    args = parser.parse_args()
-    return args
 
 
 def get_chatgpt_summaries(ann_file):
@@ -224,18 +192,15 @@ def get_input_context(data, question_prompt, encoding, args):
     total_tokens = 0
     min_session = -1
     stop = False
-    max_session = [i for i in range(1, 50) if 'session_%s' % i in data and data['session_%s' % i] != []][-1]
-    for i in range(max_session, 0, -1):
+    session_nums = [int(k.split('_')[-1]) for k in data.keys() if 'session' in k and 'date_time' not in k]
+    for i in range(min(session_nums), max(session_nums) + 1):
         if 'session_%s' % i in data:
             for dialog in data['session_%s' % i][::-1]:
                 turn = ''
-                try:
-                    turn = dialog['speaker'] + ' said, \"' + dialog['compressed_text'] + '\"'
-                except KeyError:
-                    turn = dialog['speaker'] + ' said, \"' + dialog['clean_text'] + '\"'
-                if "img_file" in dialog and len(dialog["img_file"]) > 0:
-                    turn += ' [shares %s]' % dialog["blip_caption"]
-                turn = turn + '\n'
+                turn = dialog['speaker'] + ' said, \"' + dialog['text'] + '\"' + '\n'
+                if "blip_caption" in dialog:
+                    turn += ' and shared %s.' % dialog["blip_caption"]
+                turn += '\n'
 
                 # get an approximate estimate of where to truncate conversation to fit into contex window
                 new_tokens = len(encoding.encode('DATE: ' + data['session_%s_date_time' % i] + '\n' + 'CONVERSATION:\n' + turn))
@@ -253,27 +218,18 @@ def get_input_context(data, question_prompt, encoding, args):
             break
     
     query_conv = start_prompt + query_conv
-    
-    if min_session == -1:
-        print("Saved %s tokens in query conversation from full conversation" % total_tokens)
-    else:
-        print("Saved %s tokens in query conversation from %s out of %s sessions" % (total_tokens, max_session-min_session, max_session))
 
     return query_conv
 
 
-def get_answers(ann_file, out_file, args, pipeline, model_name):
+def get_hf_answers(in_data, out_data, args, pipeline, model_name):
 
     if 'mistral' in model_name:
         encoding = AutoTokenizer.from_pretrained(model_name)
     else:
         encoding = AutoTokenizer.from_pretrained(model_name)
-    data = json.load(open(ann_file))
 
-    if os.path.exists(out_file):
-        data = json.load(open(out_file))
-
-    for batch_start_idx in range(0, len(data['qa']) + args.batch_size, args.batch_size):
+    for batch_start_idx in range(0, len(in_data['qa']) + args.batch_size, args.batch_size):
 
         questions = []
         include_idxs = []
@@ -282,9 +238,9 @@ def get_answers(ann_file, out_file, args, pipeline, model_name):
         for i in range(batch_start_idx, batch_start_idx + args.batch_size):
 
             # end if all questions have been included
-            if i>=len(data['qa']):
+            if i>=len(in_data['qa']):
                 break
-            qa = data['qa'][i]
+            qa = in_data['qa'][i]
             # skip if already predicted and overwrite is set to False            
             if '%s_prediction' % args.model not in qa or args.overwrite:
                 include_idxs.append(i)
@@ -316,62 +272,12 @@ def get_answers(ann_file, out_file, args, pipeline, model_name):
 
         if args.batch_size == 1:
 
-            # ######################################################################################################################
-            # question_prompt =  QA_PROMPT.format(questions[0])
-            # if 'chat' in args.model:
-            #     query_conv = get_input_context(data, LLAMA2_CHAT_SYSTEM_PROMPT.format(question_prompt), encoding, ann_file, args)
-            # elif 'instruct' in args.model:
-            #     query_conv = get_input_context(data, MISTRAL_INSTRUCT_SYSTEM_PROMPT.format(question_prompt), encoding, ann_file, args)
-            # else:
-            #     query_conv = get_input_context(data, question_prompt, encoding, ann_file, args)
-            
-            # if 'chat' in args.model:
-            #     query = LLAMA2_CHAT_SYSTEM_PROMPT.format(query_conv + '\n\n' + question_prompt)
-            # elif 'instruct' in args.model:
-            #     # without chat-style input for conversations
-            #     # query = MISTRAL_INSTRUCT_SYSTEM_PROMPT.format(query_conv + '\n\n' + question_prompt)
-            #     # with chat-style input for conversations
-            #     query = MISTRAL_INSTRUCT_SYSTEM_PROMPT.format(query_conv + '\n\n' + question_prompt)
-
-            # else:
-            #     query = query_conv + '\n' + question_prompt
-            
-            # print(query)
-            # if 'mistral' not in model_name:
-            #     sequences = pipeline(
-            #                     query,
-            #                     do_sample=True,
-            #                     top_k=10,
-            #                     num_return_sequences=1,
-            #                     eos_token_id=encoding.eos_token_id,
-            #                     max_new_tokens=args.batch_size*batch_multiplier,
-            #                     return_full_text=False
-            #                 )
-            # else:
-            #     sequences = pipeline(
-            #                     query,
-            #                     # max_length=8000,
-            #                     max_new_tokens=args.batch_size*batch_multiplier,
-            #                     pad_token_id=encoding.pad_token_id,
-            #                     eos_token_id=encoding.eos_token_id,
-            #                     do_sample=True,
-            #                     top_k=10,
-            #                     temperature=0.4,
-            #                     top_p=0.9,
-            #                     return_full_text=False,
-            #                     num_return_sequences=1,
-            #                 )
-            
-            # print(sequences[0]['generated_text'])
-            # answer = sequences[0]['generated_text'].replace('\\"', "'").strip()
-            # ####################################################################################################
-
             if 'mistral' in model_name:
-                answer = run_mistral(pipeline, questions[0], data, encoding, args)
+                answer = run_mistral(pipeline, questions[0], in_data, encoding, args)
             elif 'llama' in model_name:
-                answer = run_llama(pipeline, questions[0], data, encoding, args)
+                answer = run_llama(pipeline, questions[0], in_data, encoding, args)
             elif 'gemma' in model_name:
-                answer = run_gemma(pipeline, questions[0], data, encoding, args)
+                answer = run_gemma(pipeline, questions[0], in_data, encoding, args)
             else:
                 raise NotImplementedError
             
@@ -388,36 +294,15 @@ def get_answers(ann_file, out_file, args, pipeline, model_name):
                     answer = cat_5_answers[0]['b']
             else:
                 answer = answer.lower().replace('(a)', '').replace('(b)', '').replace('a)', '').replace('b)', '').replace('answer:', '').strip()
-            data['qa'][batch_start_idx]['%s_prediction' % args.model] = answer
+            out_data['qa'][batch_start_idx]['%s_prediction' % args.model] = answer
 
         else:            
             raise NotImplementedError
 
-        # save after every batch for backup in case process terminates
-        with open(out_file, 'w') as f:
-            json.dump(data, f, indent=2)
+    return out_data
 
 
-def main():
-
-    # get arguments
-    args = parse_args()
-
-    # output directory
-    if not os.path.exists(args.out_dir):
-        os.makedirs(args.out_dir)
-
-    # data_files = [os.path.join(args.data_dir, f) for f in os.listdir(args.data_dir) if f.endswith('.json')]
-    # data_files = [os.path.join(args.data_dir, f) for f in ['44_post_qa_post_clean_adv.json']]
-    data_files = [os.path.join(args.data_dir, f) for f in ['41_post_qa_post_clean_adv.json']]
-
-    # data_files = [os.path.join(args.data_dir, f) for f in ['42_post_qa_post_clean_adv.json',
-    #                                                        '43_post_qa_post_clean_adv_new.json', 
-    #                                                        '44_post_qa_post_clean_adv_new.json',
-    #                                                        '47_post_qa_post_clean_adv_new.json',
-    #                                                        '48_post_qa_post_clean_adv_new.json',
-    #                                                        '49_post_qa_post_clean_adv_new.json',
-    #                                                        '50_post_qa_post_clean_adv_new.json']]
+def init_hf_model(args):
 
     if args.model == 'llama2':
         model_name = "meta-llama/Llama-2-7b-hf"
@@ -449,18 +334,19 @@ def main():
     elif args.model in ['gemma-7b-it']:
         model_name = 'google/gemma-7b-it'
 
+    elif 'mistral' in args.model.lower():
+        model_name = 'mistralai/' + args.model
+
     else:
         raise ValueError
     
-    # hf_token = "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"
-    # hf_token = "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"
-    hf_token = "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"
+    hf_token = os.environ['HF_TOKEN']
     huggingface_hub.login(hf_token)
 
     if args.use_4bit:
 
         print("Using 4-bit inference")
-        tokenizer = AutoTokenizer.from_pretrained(model_name, token="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")
+        tokenizer = AutoTokenizer.from_pretrained(model_name, token=hf_token)
         tokenizer.pad_token_id = tokenizer.eos_token_id    # for open-ended generation
 
         if 'gemma' in args.model:
@@ -513,24 +399,5 @@ def main():
         # pipeline = None
     
     print("Loaded model")
-
-    ems = []
-    for f in data_files:
-        get_answers(f, os.path.join(args.out_dir, os.path.split(f)[-1]), args, pipeline, model_name)
-        exact_matches, lengths, recalls = eval_question_answering(os.path.join(args.out_dir, os.path.split(f)[-1]), '%s_prediction' % args.model)
-        ems.extend(exact_matches)
-        save_eval(os.path.join(args.out_dir, os.path.split(f)[-1]), exact_matches, args.model + '_rouge')
-        analyze_acc(os.path.join(args.out_dir, os.path.split(f)[-1]).replace('.json', '_scores.json'), 
-                    os.path.join(args.out_dir, os.path.split(f)[-1]).replace('.json', '_score_stats.json'),
-                    args.model,
-                    args.model + '_rouge')
-    
-    print("Exact Match Acc.: ", sum(ems)/len(ems))
-    
-    # get_chatgpt_answers('./data/multimodal_dialog/completed_annotations/3.json', 
-    #                     './data/multimodal_dialog/completed_annotations/3_out_gpt4_summary.json', 
-    #                     summary=True, model='gpt4')
-
-
-main()
+    return pipeline, model_name
 
