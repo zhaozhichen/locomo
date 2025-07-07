@@ -1,0 +1,3 @@
+# Ignore all example* and group_example_* directories under data/multimodal_dialog
+/data/multimodal_dialog/example*/
+/data/multimodal_dialog/group_example_*/ 
