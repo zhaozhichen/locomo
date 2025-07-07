@@ -3,11 +3,13 @@ import time
 import openai
 import logging
 from datetime import datetime
-from global_methods import run_chatgpt
+from global_methods import run_gemini, set_gemini_key
 import tiktoken
+import google.generativeai as genai
+import re
 logging.basicConfig(level=logging.INFO)
 
-
+GEMINI_MODEL_NAME = "gemini-2.5-pro"
 
 EVENT_KG_FROM_PERSONA_PROMPT_SEQUENTIAL_INIT = """
 Let's write a graph representing sub-events that occur in a person's life based on a short summary of their personality. Nodes represent sub-events and edges represent the influence of past sub-events on a current sub-event.
@@ -83,33 +85,39 @@ def sort_events_by_time(graph):
     graph = [graph[idx] for idx, _ in sorted_dates]
     return graph
 
+def strip_code_block_markers(text):
+    text = text.strip()
+    text = re.sub(r'^```(?:json)?\s*', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'\s*```$', '', text, flags=re.IGNORECASE)
+    return text.strip()
 
 # get events in one initialization step and one or more continuation steps.
 def get_events(agent, start_date, end_date, args):
-
-
+    max_retries = 10
     task = json.load(open(os.path.join(args.prompt_dir, 'event_generation_examples.json')))
     persona_examples = [e["input"] + '\nGenerate events between 1 January, 2020 and 30 April, 2020.' for e in task['examples']]
-    
-    # Step 1: Get initial events
     task = json.load(open(os.path.join(args.prompt_dir, 'graph_generation_examples.json')))
     input = agent['persona_summary'] + '\nAssign dates between %s and %s.' % (start_date, end_date)
     query = EVENT_KG_FROM_PERSONA_PROMPT_SEQUENTIAL_INIT % (persona_examples[0], 
                                                                    json.dumps(task['examples'][0]["output"][:12], indent=2),
                                                                    input)
     logging.info("Generating initial events")
-    try:
-        output = run_chatgpt(query, num_gen=1, num_tokens_request=512, use_16k=False, temperature=1.0).strip()
-        output = json.loads(output)
-    except:
-        output = run_chatgpt(query, num_gen=1, num_tokens_request=512, use_16k=False, temperature=1.0).strip()
-        output = json.loads(output)
-
-    agent_events = output
+    for attempt in range(max_retries):
+        try:
+            output = run_gemini(gemini_model, query, max_tokens=512)
+            if not output or not output.strip():
+                raise ValueError("Gemini returned empty output")
+            output_clean = strip_code_block_markers(output)
+            agent_events = json.loads(output_clean)
+            break
+        except Exception as e:
+            logging.error(f"Error in get_events (init), attempt {attempt+1}: {e}\nOutput: {repr(output) if 'output' in locals() else 'None'}")
+            time.sleep(1)
+            if attempt == max_retries - 1:
+                raise
     print("The following events have been generated in the initialization step:")
     for e in agent_events:
         print(list(e.items()))
-
     # Step 2: continue generation
     while len(agent_events) < args.num_events:
         logging.info("Generating next set of events; current tally = %s" % len(agent_events))
@@ -124,23 +132,27 @@ def get_events(agent, start_date, end_date, args):
                                                                    )
         query_length = num_tokens_from_string(query, 'gpt-3.5-turbo')
         request_length = min(1024, 4096-query_length)
-        try:
-            output = run_chatgpt(query, num_gen=1, num_tokens_request=request_length, use_16k=False, temperature=1.0).strip()
-            output = json.loads(output)
-        except:
-            output = run_chatgpt(query, num_gen=1, num_tokens_request=request_length, use_16k=False, temperature=1.0).strip()
-            output = json.loads(output)
-        
+        for attempt in range(max_retries):
+            try:
+                output = run_gemini(gemini_model, query, max_tokens=request_length)
+                if not output or not output.strip():
+                    raise ValueError("Gemini returned empty output")
+                output_clean = strip_code_block_markers(output)
+                new_events = json.loads(output_clean)
+                break
+            except Exception as e:
+                logging.error(f"Error in get_events (continue), attempt {attempt+1}: {e}\nOutput: {repr(output) if 'output' in locals() else 'None'}")
+                time.sleep(1)
+                if attempt == max_retries - 1:
+                    raise
         existing_eids = [e["id"] for e in agent_events]
-        agent_events.extend([o for o in output if o["id"] not in existing_eids])
+        agent_events.extend([o for o in new_events if o["id"] not in existing_eids])
         print("Adding events:")
         for e in agent_events:
             print(list(e.items()))
-
         # filter out standalone events
         if len(agent_events) > args.num_events:
             agent_events = filter_events(agent_events)
-
     return agent_events
 
 
@@ -169,3 +181,7 @@ def filter_events(events):
         # print(id2events[id])
     
     return [e for e in events if e["id"] not in remove_ids]
+
+# Initialize Gemini model at the start of the file or in main logic:
+set_gemini_key()
+gemini_model = genai.GenerativeModel(GEMINI_MODEL_NAME)

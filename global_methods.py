@@ -4,10 +4,13 @@ import json
 import time
 import sys
 import os
+import re
+import random
 
 import google.generativeai as genai
 from anthropic import Anthropic
 
+GEMINI_MODEL_NAME = "gemini-2.5-pro"
 
 def get_openai_embedding(texts, model="text-embedding-ada-002"):
    texts = [text.replace("\n", " ") for text in texts]
@@ -33,19 +36,29 @@ def run_json_trials(query, num_gen=1, num_tokens_request=1000,
     while run_loop:
         try:
             if examples is not None and input is not None:
-                output = run_chatgpt_with_examples(query, examples, input, num_gen=num_gen, wait_time=wait_time,
-                                                   num_tokens_request=num_tokens_request, use_16k=use_16k, temperature=temperature).strip()
+                # Use Gemini for few-shot
+                from global_methods import set_gemini_key
+                import google.generativeai as genai
+                set_gemini_key()
+                gemini_model = genai.GenerativeModel(GEMINI_MODEL_NAME)
+                output = run_gemini_with_examples(gemini_model, query, examples, input, max_tokens=num_tokens_request)
+                print("Raw output from Gemini before JSON parsing:")
+                print(repr(output))
+                output = output.strip() if output else ""
             else:
                 output = run_chatgpt(query, num_gen=num_gen, wait_time=wait_time, model=model,
                                                    num_tokens_request=num_tokens_request, use_16k=use_16k, temperature=temperature)
+                print("Raw output from LLM before JSON parsing:")
+                print(repr(output))
             output = output.replace('json', '') # this frequently happens
-            facts = json.loads(output.strip())
+            output_clean = re.sub(r"^```(?:json)?\\n|```$", "", output.strip(), flags=re.MULTILINE)
+            facts = json.loads(output_clean.strip())
             run_loop = False
         except json.decoder.JSONDecodeError:
             counter += 1
             time.sleep(1)
             print("Retrying to avoid JsonDecodeError, trial %s ..." % counter)
-            print(output)
+            print("Failed output:", repr(output))
             if counter == 10:
                 print("Exiting after 10 trials")
                 sys.exit()
@@ -79,14 +92,49 @@ def run_claude(query, max_new_tokens, model_name):
     return message.content[0].text
 
 
-def run_gemini(model, content: str, max_tokens: int = 0):
-
-    try:
-        response = model.generate_content(content)
-        return response.text
-    except Exception as e:
-        print(f'{type(e).__name__}: {e}')
-        return None
+def run_gemini(model, content: str, max_tokens: int = 0, max_retries: int = 3, base_wait_time: float = 1.0):
+    """
+    Run Gemini with robust error handling and retry logic.
+    
+    Args:
+        model: Gemini model instance
+        content: Input text to generate response for
+        max_tokens: Maximum tokens (not used by Gemini but kept for compatibility)
+        max_retries: Maximum number of retry attempts
+        base_wait_time: Base wait time for exponential backoff
+    
+    Returns:
+        Generated text or None if all retries failed
+    """
+    for attempt in range(max_retries + 1):
+        try:
+            response = model.generate_content(content)
+            if response and hasattr(response, 'text'):
+                return response.text
+            else:
+                print(f"Gemini returned empty response on attempt {attempt + 1}")
+                return None
+        except Exception as e:
+            error_type = type(e).__name__
+            error_msg = str(e)
+            
+            # Check for specific error types that should trigger retries
+            should_retry = any(keyword in error_msg.lower() for keyword in [
+                'deadline exceeded', '504', 'timeout', 'rate limit', 'quota', 
+                'resource exhausted', 'unavailable', 'internal error'
+            ])
+            
+            if attempt < max_retries and should_retry:
+                # Exponential backoff with jitter
+                wait_time = base_wait_time * (2 ** attempt) + random.uniform(0, 1)
+                print(f'Gemini API error on attempt {attempt + 1}/{max_retries + 1}: {error_type}: {error_msg}')
+                print(f'Retrying in {wait_time:.2f} seconds...')
+                time.sleep(wait_time)
+            else:
+                print(f'Gemini API error (final attempt): {error_type}: {error_msg}')
+                return None
+    
+    return None
 
 
 def run_chatgpt(query, num_gen=1, num_tokens_request=1000, 
@@ -216,3 +264,48 @@ def run_chatgpt_with_examples(query, examples, input, num_gen=1, num_tokens_requ
             pass
     
     return completion.choices[0].message.content
+
+def run_gemini_with_examples(model, query, examples, input, max_tokens=512, max_retries=3):
+    """
+    Mimics run_chatgpt_with_examples for Gemini with robust error handling.
+    - model: Gemini model instance
+    - query: system prompt or instruction
+    - examples: list of (input, output) tuples for few-shot learning
+    - input: the new input to generate a response for
+    - max_tokens: (optional) max tokens for the response
+    - max_retries: maximum number of retry attempts
+    """
+    prompt = query.strip() + "\n\n"
+    for inp, out in examples:
+        prompt += f"Input: {inp}\nOutput: {out}\n\n"
+    prompt += f"Input: {input}\nOutput:"
+    
+    for attempt in range(max_retries + 1):
+        try:
+            response = model.generate_content(prompt)
+            if response and hasattr(response, 'text'):
+                return response.text
+            else:
+                print(f"Gemini returned empty response on attempt {attempt + 1}")
+                return None
+        except Exception as e:
+            error_type = type(e).__name__
+            error_msg = str(e)
+            
+            # Check for specific error types that should trigger retries
+            should_retry = any(keyword in error_msg.lower() for keyword in [
+                'deadline exceeded', '504', 'timeout', 'rate limit', 'quota', 
+                'resource exhausted', 'unavailable', 'internal error'
+            ])
+            
+            if attempt < max_retries and should_retry:
+                # Exponential backoff with jitter
+                wait_time = 1.0 * (2 ** attempt) + random.uniform(0, 1)
+                print(f'Gemini API error on attempt {attempt + 1}/{max_retries + 1}: {error_type}: {error_msg}')
+                print(f'Retrying in {wait_time:.2f} seconds...')
+                time.sleep(wait_time)
+            else:
+                print(f'Gemini API error (final attempt): {error_type}: {error_msg}')
+                return None
+    
+    return None

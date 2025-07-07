@@ -2,7 +2,9 @@ import json, re, os
 import random
 from icrawler.builtin import ImageDownloader
 from icrawler.builtin import GoogleImageCrawler
-from global_methods import run_chatgpt, run_chatgpt_with_examples
+from global_methods import run_gemini, set_gemini_key
+import google.generativeai as genai
+import logging
 
 PERSONA_FROM_MSC_PROMPT = "Let's write speaker descriptions from a given set of life attributes. Example:\n\n%s\n\nNote: Add crucial details in the persona about the person such as their name, age, marital status, gender, job etc. Add additional details like names of family/friends or specific activities, likes and dislikes, experiences when appropriate.\n\nFor the following attributes, write a persona. Output a json file with the keys 'persona' and 'name'.\n\n%s\n\nStart your answer with a curly bracket.\n"
 
@@ -14,13 +16,14 @@ AGENT_CONV_PROMPT_SESS_1 = "%s\n\n%s is meeting %s for the first time. Today is 
 
 AGENT_CONV_PROMPT_SESS_1_W_EVENTS = """
 Use a given PERSONALITY to write the next thing you would say in the conversation. 
+- Respond with a single, natural utterance (not a list of options).
 - If starting the conversation, start with asking about the other person or talking about something that happened in your life recently. 
 - Do not repeat information shared previously in the conversation.
 - Include references to time such as 'last Friday', 'next month' or 'when I was ten years old', and to specific people. 
 - Write replies in less than 20 words.
 - Ask follow-up questions from previous conversations. 
 - Find opportunities to write replies where you share a photo of things you own or like, things you need help with, or old memories, and talk about the photo to tell them more about yourself. Photos should be relevant to you.
-- When sharing a photo, write the detailed caption of the photo between square brackets. For example, "When I was a child, my mother used to bake pineapple birthday cakes and I loved them.\n[shares an old photo of a pineapple birthday cake with a candle that says 1]"
+- When sharing a photo, write the detailed caption of the photo between square brackets. For example, \"When I was a child, my mother used to bake pineapple birthday cakes and I loved them.\n[shares an old photo of a pineapple birthday cake with a candle that says 1]\"
 
 PERSONALITY: %s
 
@@ -36,6 +39,7 @@ AGENT_CONV_PROMPT = "%s\n\n%s last talked to %s at %s. %s\n\nToday is %s. Assume
 
 AGENT_CONV_PROMPT_W_EVENTS = """
 Use a given PERSONALITY to write the next thing you would say in the conversation. 
+- Respond with a single, natural utterance (not a list of options).
 - If starting the conversation, start with asking about the other person or talking about something that happened in your life recently. 
 - Do not repeat information shared previously in the conversation. 
 - Make the conversation personal e.g., talk about family, friends, likes, dislikes and aspirations. 
@@ -43,7 +47,7 @@ Use a given PERSONALITY to write the next thing you would say in the conversatio
 - Write replies in less than 20 words. 
 - Ask follow-up questions from previous conversations. 
 - Find opportunities to write replies where you share a photo of things you own or like, things you need help with, or old memories, and talk about the photo to tell them more about yourself. Photos should be relevant to you. 
-- When sharing a photo, write the detailed caption of the photo between square brackets. For example, "When I was a child, my mother used to bake pineapple birthday cakes and I loved them.\n[shares an old photo of a pineapple birthday cake with a candle that says 1]"
+- When sharing a photo, write the detailed caption of the photo between square brackets. For example, \"When I was a child, my mother used to bake pineapple birthday cakes and I loved them.\n[shares an old photo of a pineapple birthday cake with a candle that says 1]\"
 
 PERSONALITY: %s
 
@@ -60,13 +64,14 @@ Use the events in your conversation. %s Write the next thing you would say in th
 
 AGENT_CONV_PROMPT_W_EVENTS_V2_INIT = """
 Use a given PERSONALITY to write the next thing you would say in the conversation.
+- Respond with a single, natural utterance (not a list of options).
 - Write replies in less than 20 words. 
 - Make the conversation deep and personal e.g., talk about emotions, likes, dislikes, aspirations and relationships. Discuss significant life-events in detail.
 - Do not repeat information shared previously in the conversation. 
 - Include references to time such as 'last Friday', 'next month' or 'when I was ten years old', and to specific people. 
 - Sometimes, ask follow-up questions from previous conversations or current topic. 
 - Find opportunities to write replies where you share a photo of things you own or like, things you need help with, or old memories, and talk about the photo to tell them more about yourself. Photos should be relevant to you. 
-- When sharing a photo, write the detailed caption of the photo between square brackets. For example, "When I was a child, my mother used to bake pineapple birthday cakes and I loved them.\n[shares an old photo of a pineapple birthday cake with a candle that says 1]"
+- When sharing a photo, write the detailed caption of the photo between square brackets. For example, \"When I was a child, my mother used to bake pineapple birthday cakes and I loved them.\n[shares an old photo of a pineapple birthday cake with a candle that says 1]\"
 - Don't talk about outdoor activities.
 
 PERSONALITY: %s
@@ -90,13 +95,14 @@ EVENTS:
 
 AGENT_CONV_PROMPT_W_EVENTS_V2 = """
 Use a given PERSONALITY to write the next thing you would say in the conversation. 
+- Respond with a single, natural utterance (not a list of options).
 - Write replies in less than 20 words. 
 - Make the conversation deep and personal e.g., talk about emotions, likes, dislikes, aspirations and relationships. Discuss significant life-events in detail.
 - Do not repeat information shared previously in the conversation. 
 - Include references to time such as 'last Friday', 'next month' or 'when I was ten years old', and to specific people. 
 - Sometimes, ask follow-up questions from previous conversations or current topic. 
 - Find opportunities to write replies where you share a photo of things you own or like, things you need help with, or old memories, and talk about the photo to tell them more about yourself. Photos should be relevant to you. 
-- When sharing a photo, write the detailed caption of the photo between square brackets. For example, "When I was a child, my mother used to bake pineapple birthday cakes and I loved them.\n[shares an old photo of a pineapple birthday cake with a candle that says 1]"
+- When sharing a photo, write the detailed caption of the photo between square brackets. For example, \"When I was a child, my mother used to bake pineapple birthday cakes and I loved them.\n[shares an old photo of a pineapple birthday cake with a candle that says 1]\"
 - Don't talk about outdoor activities.
 
 PERSONALITY: %s
@@ -124,7 +130,11 @@ ALIGNMENT_PROMPT = "Let's write whether the given image is relevant to the dialo
 
 DIALOG2IMAGE_QUERY_PROMPT = "Let's write short image search queries from textual descriptions of photos shared by a user. Queries should not include names of people, years and other irrelevant details. For example:\n\nInput: That sounds relaxing, Jeremy! As for video game suggestions, have you ever tried \"The Legend of Zelda: Breath of the Wild\"? It's an open-world adventure game that I absolutely love. [shares a photo of Link standing in front of a breathtaking landscape] Have a look at this stunning view!\nOutput: the legend of zelda: breath of wild link landscape\n\nInput: That sounds like such a special memory. Learning how to ride a bike is definitely a milestone. Do you still enjoy biking now? [shares a photo of a scenic bike trail] This is a beautiful bike trail I came across recently. It looks like a peaceful place to ride.\nOutput: scenic bike trail\n\nInput: Yes, we also visited a beautiful sunflower field in Korea. [shares a photo of a vast field of sunflowers] It was such a stunning sight with rows and rows of vibrant yellow flowers stretching as far as the eye could see. It was definitely a highlight of our trip. Have you ever seen a sunflower field before?\n Output: sunflower field korea\n\nWrite search query for the following input.\n\nInput: %s\nOutput: "
 
-CASUAL_DIALOG_PROMPT = "Make the sentence short, less formal, less grandiose and more casual. \n\nInput: %s\nOutput: "
+CASUAL_DIALOG_PROMPT = (
+    "Rewrite the following sentence to be short, less formal, and more casual. "
+    "Respond with a single, natural sentence, not a list or multiple options.\n\n"
+    "Input: %s\nOutput: "
+)
 
 
 SESSION_SUMMARY_PROMPT = "Previous conversations between %s and %s so far can be summarized as follows: %s. The current time and date are %s. %s and %s just had the following conversation:\n\n%s\n\nSummarize the previous and current conversations between %s and %s in 150 words or less. Include key facts about both speakers and time references.\n\n"
@@ -136,7 +146,7 @@ SESSION_SUMMARY_INIT_PROMPT = "Write a concise summary containing key facts ment
 VISUAL_QUESTION_PROMPT = "{}\n\n{}\n\n{} says, {}, and {}. Write the most natural question or comment {} can include in her response."
 
 
-def get_msc_persona(args):
+def get_msc_persona(args, gemini_model):
     # check if personas exist, else generate persona + summary
     if (os.path.exists(args.agent_a_file) and os.path.exists(args.agent_b_file)) and not args.overwrite_persona:
         return None, None
@@ -147,11 +157,11 @@ def get_msc_persona(args):
         with open('./data/msc_personas_all.json', "w") as f:
             all_personas['train'][selected_idx]["in_dataset"] = 1
             json.dump(all_personas, f, indent=2)
-        agent_a = get_persona(args, attributes['Speaker 1'])
+        agent_a = get_persona(args, attributes['Speaker 1'], gemini_model)
 
         agent_a['persona_summary'] = agent_a['persona']
         agent_a['msc_prompt'] = attributes['Speaker 1']
-        agent_b = get_persona(args, attributes['Speaker 2']) # setting the second agent to have age within +/- 5 years of first agent
+        agent_b = get_persona(args, attributes['Speaker 2'], gemini_model) # setting the second agent to have age within +/- 5 years of first agent
 
         agent_b['persona_summary'] = agent_b['persona']
         agent_b['msc_prompt'] = attributes['Speaker 2']
@@ -162,20 +172,48 @@ def get_msc_persona(args):
     return agent_a, agent_b
 
 
-def get_persona(args, attributes, target='human', ref_age=None):
-
+def get_persona(args, attributes, gemini_model, target='human', ref_age=None):
+    import re
     task = json.load(open(os.path.join(args.prompt_dir, 'persona_generation_examples.json')))
     persona_examples = [task["input_prefix"] + json.dumps(e["input"], indent=2) + '\n' + task["output_prefix"] + e["output"] for e in task['examples']]
     input_string = task["input_prefix"] + json.dumps(attributes, indent=2)
 
     query = PERSONA_FROM_MSC_PROMPT % (persona_examples, input_string)
 
-    try:
-        output = run_chatgpt(query, num_gen=1, num_tokens_request=1000, use_16k=True).strip()
-        output = json.loads(output)
-    except:
-        output = run_chatgpt(query, num_gen=1, num_tokens_request=1000, use_16k=True).strip()
-        output = json.loads(output)
+    max_retries = 5
+    for attempt in range(max_retries):
+        try:
+            output = run_gemini(gemini_model, query, max_tokens=1000)
+            if output is None:
+                print(f"Gemini returned None in get_persona attempt {attempt+1}. Retrying...")
+                continue
+            output = output.strip()
+            print("Raw Gemini output in get_persona:", repr(output))
+            output_clean = re.sub(r"^```(?:json)?\s*", "", output)
+            output_clean = re.sub(r"```$", "", output_clean.strip())
+            print("Cleaned Gemini output in get_persona:", repr(output_clean.strip()))
+            if not output_clean.strip():
+                print("Gemini returned empty output after cleaning. Retrying...")
+                continue
+            output = json.loads(output_clean.strip())
+            
+            # Validate name/persona consistency
+            if isinstance(output, dict) and 'name' in output and 'persona' in output:
+                name = output['name'].strip()
+                persona = output['persona'].strip()
+                # Check if the name appears in the persona (case-insensitive)
+                if name.lower() not in persona.lower():
+                    print(f"WARNING: Name '{name}' does not appear in persona. Retrying...")
+                    continue
+                # Check if persona starts with the correct name
+                if not persona.lower().startswith(name.lower()):
+                    print(f"WARNING: Persona does not start with name '{name}'. Retrying...")
+                    continue
+            break
+        except Exception as e:
+            print(f"Error in get_persona attempt {attempt+1}: {e}")
+            if attempt == max_retries - 1:
+                raise
     
     if type(output) == list:
         output = [clean_json_output(out) for out in output]
@@ -187,8 +225,6 @@ def get_persona(args, attributes, target='human', ref_age=None):
     else:
         raise TypeError
     
-    # print(output)
-
     return output
 
 
@@ -241,27 +277,36 @@ def insert_image(text, events):
 
 
 def get_images(query, out_dir, file_offset):
-    
+    # Try with large photo filter
     google_crawler = GoogleImageCrawler(downloader_cls=CustomLinkPrinter, storage={'root_dir': out_dir})
     google_crawler.downloader.file_urls = []
     google_crawler.downloader.file_names = []
-    google_crawler.crawl(keyword=query, max_num=1, file_idx_offset=file_offset, overwrite=True, filters={'type': 'photo', 'size': '=3024x4032'}) # 'license': 'commercial,modify'
+    google_crawler.crawl(keyword=query, max_num=1, file_idx_offset=file_offset, overwrite=True, filters={'type': 'photo', 'size': 'large'})
     file_urls =  google_crawler.downloader.file_urls
     file_names = google_crawler.downloader.file_names
 
+    # Fallback: just photo type
     if file_names == []:
         google_crawler = GoogleImageCrawler(downloader_cls=CustomLinkPrinter, storage={'root_dir': out_dir})
         google_crawler.downloader.file_urls = []
         google_crawler.downloader.file_names = []
-        google_crawler.crawl(keyword=query, max_num=1, file_idx_offset=file_offset, overwrite=True, filters={'type': 'photo', 'size': '=4032x3024'}) # 'license': 'commercial,modify'
+        google_crawler.crawl(keyword=query, max_num=1, file_idx_offset=file_offset, overwrite=True, filters={'type': 'photo'})
+        file_urls =  google_crawler.downloader.file_urls
+        file_names = google_crawler.downloader.file_names
+
+    # Fallback: no filters at all
+    if file_names == []:
+        google_crawler = GoogleImageCrawler(downloader_cls=CustomLinkPrinter, storage={'root_dir': out_dir})
+        google_crawler.downloader.file_urls = []
+        google_crawler.downloader.file_names = []
+        google_crawler.crawl(keyword=query, max_num=1, file_idx_offset=file_offset, overwrite=True, filters={})
         file_urls =  google_crawler.downloader.file_urls
         file_names = google_crawler.downloader.file_names
     
     return file_urls, file_names
 
 
-def replace_captions(text, args):
-
+def replace_captions(text, args, gemini_model):
     task = json.load(open(os.path.join(args.prompt_dir, 'image_sharing_examples.json')))
     query = task['prompt']
     examples = []
@@ -274,7 +319,8 @@ def replace_captions(text, args):
         if text.replace(m ,'').isspace():
             return ""
         else:
-            new_text = run_chatgpt_with_examples(query, examples, m[1:-1], num_gen=1, num_tokens_request=1000, use_16k=False)
+            prompt = f"{query}\nInput: {m[1:-1]}"
+            new_text = run_gemini(gemini_model, prompt, max_tokens=1000)
             if len(set(text.replace(m, '').split()).intersection(new_text.split())) < 0.5 * len(set(text.replace(m, '').split())):
                 text = text.replace(m, '')
             else:
@@ -283,7 +329,7 @@ def replace_captions(text, args):
 
     return text
 
-def insert_image_response(text):
+def insert_image_response(text, gemini_model):
 
     matches = re.findall(r"\[.*\]", text)
 
@@ -291,7 +337,7 @@ def insert_image_response(text):
     m = None
     for m in matches:
         if 'share' in m or 'Share' in m:
-            image_search_query = run_chatgpt(DIALOG2IMAGE_QUERY_PROMPT % text, 1, 20, 'chatgpt').strip()
+            image_search_query = run_gemini(gemini_model, DIALOG2IMAGE_QUERY_PROMPT % text, 1, 20, 'chatgpt').strip()
             break
         else:
             text = text.replace(m, '')
@@ -437,71 +483,54 @@ class CustomLinkPrinter(ImageDownloader):
         """Download the image and save it to the corresponding path.
 
         Args:
-            task (dict): The task dict got from ``task_queue``.
+            task (dict): The task dict got from ``
             timeout (int): Timeout of making requests for downloading images.
             max_retry (int): the max retry times if the request fails.
             **kwargs: reserved arguments for overriding.
         """
-        file_url = task["file_url"]
-        task["success"] = False
-        task["filename"] = None
-        retry = max_retry
+        # ... rest of the function ...
 
-        if not overwrite:
-            with self.lock:
-                self.fetched_num += 1
-                filename = self.get_filename(task, default_ext)
-                if self.storage.exists(filename):
-                    self.logger.info("skip downloading file %s", filename)
-                    return
-                self.fetched_num -= 1
-
-        while retry > 0 and not self.signal.get("reach_max_num"):
-            try:
-                response = self.session.get(file_url, timeout=timeout)
-            except Exception as e:
-                self.logger.error(
-                    "Exception caught when downloading file %s, " "error: %s, remaining retry times: %d",
-                    file_url,
-                    e,
-                    retry - 1,
-                )
-            else:
-                if self.reach_max_num():
-                    self.signal.set(reach_max_num=True)
-                    break
-                elif response.status_code != 200:
-                    self.logger.error("Response status code %d, file %s", response.status_code, file_url)
-                    break
-                elif not self.keep_file(task, response, **kwargs):
-                    break
-                with self.lock:
-                    self.fetched_num += 1
-                    filename = self.get_filename(task, default_ext)
-                self.logger.info("image #%s\t%s", self.fetched_num, file_url)
-                self.file_urls.append(file_url)
-                self.file_names.append(filename)
-                self.storage.write(filename, response.content)
-                task["success"] = True
-                task["filename"] = filename
+def get_msc_personas(args, gemini_model, num_agents):
+    all_personas = json.load(open('./data/msc_personas_all.json'))
+    available_idxs = [idx for idx, d in enumerate(all_personas['train']) if not d["in_dataset"]]
+    random.shuffle(available_idxs)
+    agents = []
+    used_names = set()
+    used_summaries = set()
+    idx_ptr = 0
+    max_attempts = len(available_idxs) * 4  # allow for retries
+    attempts = 0
+    while len(agents) < num_agents and attempts < max_attempts:
+        if idx_ptr >= len(available_idxs):
+            random.shuffle(available_idxs)
+            idx_ptr = 0
+        idx = available_idxs[idx_ptr]
+        attributes = all_personas['train'][idx]
+        with open('./data/msc_personas_all.json', "w") as f:
+            all_personas['train'][idx]["in_dataset"] = 1
+            json.dump(all_personas, f, indent=2)
+        tries = 0
+        while tries < 10:
+            speaker_key = random.choice(['Speaker 1', 'Speaker 2'])
+            agent = get_persona(args, attributes[speaker_key], gemini_model)
+            agent_name = agent.get('name', '').strip().lower()
+            persona_summary = agent.get('persona', '').strip().lower()
+            logging.info(f"Generated agent: name={agent_name}, summary={persona_summary}, attributes={attributes[speaker_key]}")
+            if agent_name in used_names:
+                logging.warning(f"Duplicate agent name detected: {agent_name}. Retrying...")
+            if persona_summary in used_summaries:
+                logging.warning(f"Duplicate persona summary detected for name {agent_name}. Retrying...")
+            if agent_name and agent_name not in used_names and persona_summary and persona_summary not in used_summaries:
+                agent['persona_summary'] = agent['persona']
+                agent['msc_prompt'] = attributes[speaker_key]
+                del agent['persona']
+                agents.append(agent)
+                used_names.add(agent_name)
+                used_summaries.add(persona_summary)
                 break
-            finally:
-                retry -= 1
-
-    # def download(self, task, default_ext, timeout=5, max_retry=3, overwrite=False, **kwargs):
-    #     file_url = task['file_url']
-    #     filename = self.get_filename(task, default_ext)
-
-    #     task['success'] = True
-    #     task['filename'] = filename
-
-    #     if not self.signal.get('reach_max_num'):
-    #         self.file_urls.append(file_url)
-    #         self.file_names.append(filename)
-
-    #     self.fetched_num += 1
-
-    #     if self.reach_max_num():
-    #         self.signal.set(reach_max_num=True)
-
-    #     return
+            tries += 1
+        idx_ptr += 1
+        attempts += 1
+    if len(agents) < num_agents:
+        raise ValueError("Could not generate enough unique agents by name and persona. Try increasing the pool or check persona data.")
+    return agents

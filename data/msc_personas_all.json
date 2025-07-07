@@ -435,7 +435,7 @@
         "I am a jack of all trades.",
         "I love helping family."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -577,7 +577,7 @@
         "I have a husband.",
         "I love starbucks."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -1102,7 +1102,7 @@
         "I like different genres of music.",
         "I like the show Rick and Morty."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -1193,7 +1193,7 @@
         "I listen to music.",
         "I prefer classic rock music."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -1425,7 +1425,7 @@
         "I also like to paint nails.",
         "I like to stay home."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -1810,7 +1810,7 @@
         "I live crabs with butter.",
         "I like model airplanes and dragons."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -1924,7 +1924,7 @@
         "I like cupcakes.",
         "I sometimes read sci-fi novels."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -2693,7 +2693,7 @@
         "I like tea.",
         "I like horror shows."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -2834,7 +2834,7 @@
         "I'm a legal assistant.",
         "I think being a legal assistant is boring."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -3197,7 +3197,7 @@
         "I like dancing.",
         "I don't like clowns."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -3583,7 +3583,7 @@
         "I have been to Niagra Falls.",
         "My favorite travel spot is Africa."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -3764,7 +3764,7 @@
         "I don't like cleaning fish.",
         "I like to eat steak, lobsters, caviar, and anything expensive."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -3835,7 +3835,7 @@
         "I love decorating for christmas.",
         "My favorite season is summer."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -3937,7 +3937,7 @@
         "I don't have many friends.",
         "I like books and read a lot."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -4161,7 +4161,7 @@
         "My grandmother taught me violin.",
         "I like candy."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -4179,7 +4179,7 @@
         "I like to watch movies and hang out with my friends in my free time.",
         "I do not gamble."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -4195,7 +4195,7 @@
         "I also lived in Sparta for a year.",
         "I enjoyed living in Greece."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -4226,7 +4226,7 @@
         "I have a shih tzu.",
         "I am writing a book."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -4366,7 +4366,7 @@
         "My job is not permanent.",
         "My favourite hymn is \"O, hallelujah\"."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -4406,7 +4406,7 @@
         "I love in California.",
         "I love to spread laughter."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -4483,7 +4483,7 @@
         "I am a musician.",
         "I am 34 years old."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -5416,7 +5416,7 @@
         "I don't live with my parents.",
         "I am going to socialize tonight."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -5506,7 +5506,7 @@
         "I am shy.",
         "I get along well with others."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -6868,7 +6868,7 @@
         "I love hockey.",
         "I start my senior year of high school next week."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -7933,7 +7933,7 @@
         "I prefer classical to country music.",
         "I enjoy Stephen King books."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -8053,7 +8053,7 @@
         "I enjoy watching Battlestar Galactica.",
         "I love country living."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -8372,7 +8372,7 @@
         "I like the beach and sun.",
         "I am not really good at surfing."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -9234,7 +9234,7 @@
         "I only eat fish.",
         "My parents are over 6 foot tall."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -9386,7 +9386,7 @@
         "I love outdoors.",
         "I'm from New York."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -10678,7 +10678,7 @@
         "Swimming is my hobby now.",
         "I played tennis in middle school."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -10837,7 +10837,7 @@
         "I eat meat.",
         "I live in a small city in new jersey."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -11042,7 +11042,7 @@
         "I think Red Hot Chilli Peppers' music is relaxing.",
         "I think Flea is the best bass player."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -11073,7 +11073,7 @@
         "I like spending time at home with my kids and dogs.",
         "I have two kids and three dogs."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -11321,7 +11321,7 @@
         "I like crafts.",
         "I am a perfectionist."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -11390,7 +11390,7 @@
         "I got divorced a few months ago.",
         "I wear reading glasses."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -11438,7 +11438,7 @@
         "I have a red bike.",
         "I don't go to school."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -11637,7 +11637,7 @@
         "I study a lot.",
         "Science is difficult for me."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -12101,7 +12101,7 @@
         "I smoke weed and also crochet.",
         "I went to prom."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -12122,7 +12122,7 @@
         "I ride a bike.",
         "I listen to music every day."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -12242,7 +12242,7 @@
         "I own a cupcake business.",
         "im not ponctual."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -12851,7 +12851,7 @@
         "I just bought a new silver Chevy Silverado.",
         "I want to start a pumpkin stand."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -13126,7 +13126,7 @@
         "I have a husband.",
         "I love fall."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -13501,7 +13501,7 @@
         "I love animals.",
         "I have a couple of shelter dogs."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -13817,7 +13817,7 @@
         "I like metal music.",
         "I work at a club that plays metal music."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -13889,7 +13889,7 @@
         "I like console gaming.",
         "My life is not exciting."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -14901,7 +14901,7 @@
         "I have a dog.",
         "I do bookkeeping."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -14976,7 +14976,7 @@
         "I would like to visit New Zealand.",
         "I live in the United States of America."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -15974,7 +15974,7 @@
         "I have two dogs.",
         "I am pretty."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -16049,7 +16049,7 @@
         "I am married.",
         "I do not own any parrots."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -17002,7 +17002,7 @@
         "I sometimes eat the fish I catch and don't enjoy cleaning the guts out.",
         "I like pasta."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -17204,7 +17204,7 @@
         "My father used to be a mechanic.",
         "I like hot drink."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -17569,7 +17569,7 @@
         "I do not have a favorite song.",
         "I do not have kids."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -17820,7 +17820,7 @@
         "I need help with countouring.",
         "I watch youtube sometimes."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -19024,7 +19024,7 @@
         "I like to travel.",
         "I have been to a theme park a couple of times."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -19075,7 +19075,7 @@
         "I love country music.",
         "I love the color orange and the fall season."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -19114,7 +19114,7 @@
         "I play the video game character online.",
         "I wasn't on the cover of wired."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -19133,7 +19133,7 @@
         "I like sewing.",
         "I prefer the taste of feet that have been taken care of."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -19192,7 +19192,7 @@
         "I play music.",
         "My hiking boots are pink."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -19591,7 +19591,7 @@
         "Steak is my favorite food.",
         "I live in California."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -19981,7 +19981,7 @@
         "I want to write a story about my mom.",
         "My mom died when I was 9."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -20631,7 +20631,7 @@
         "I am going on a cruise trip next month.",
         "I love to live life to the fullest."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -20868,7 +20868,7 @@
         "I love popcorn.",
         "I like to paint."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -21088,7 +21088,7 @@
         "I am divorced.",
         "I want a big dog."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -21220,7 +21220,7 @@
         "I teach tax law.",
         "I was in a beauty pageant once."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -21470,7 +21470,7 @@
         "I have dogs.",
         "I have four dogs."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -21526,7 +21526,7 @@
         "I do not live near the beach.",
         "My lease does not allow monkeys as pets."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -21692,7 +21692,7 @@
         "I want an exclusive relationship.",
         "I am jealous of a woman's promotion."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -21931,7 +21931,7 @@
         "I have 2 dogs.",
         "My dogs are a bulldog and a pitbull."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -22189,7 +22189,7 @@
         "I previously had a ford focus.",
         "Im not a car person."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -22411,7 +22411,7 @@
         "I have three brothers.",
         "I buy clothes on the nike website."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -22551,7 +22551,7 @@
         "I do not work in the judicial system.",
         "I also like to volunteer and find it rewarding."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -23487,7 +23487,7 @@
         "I don't drive.",
         "I have an ex-husband."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -23543,7 +23543,7 @@
         "I am an orphan.",
         "I did not like living in Nevada."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -23656,7 +23656,7 @@
         "I work a lot.",
         "I don't walk a lot."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -23810,7 +23810,7 @@
         "I am a country boy.",
         "I have a wife."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -24318,7 +24318,7 @@
         "I have two cats and don't enjoy working out.",
         "I only have two cats but would like a bird."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -24405,7 +24405,7 @@
         "I am trying to get a career in book publishing.",
         "I have one signed book, signed by my mother."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -25306,7 +25306,7 @@
         "I think there are dragons that are still alive.",
         "I agree with you."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -25339,7 +25339,7 @@
         "I am in college.",
         "I met partner seven years ago while in high school."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -25604,7 +25604,7 @@
         "I like asian style tea.",
         "I take breaks."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -25617,7 +25617,7 @@
         "I have a black car.",
         "I have a pet panda."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -25676,7 +25676,7 @@
         "I like to draw.",
         "I like to golf."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -26065,7 +26065,7 @@
         "Green is my favourite colour.",
         "I love Danny DeVito."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -26141,7 +26141,7 @@
         "I'm studying for a bachelors degree.",
         "I love chocolate ice cream."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -26290,7 +26290,7 @@
         "I like tours and bookkeeping.",
         "I work at a grocery store."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -26369,7 +26369,7 @@
         "I have a son.",
         "I have allergies."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -26461,7 +26461,7 @@
         "I live in California.",
         "I learned to surf as a child from my Father."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -26521,7 +26521,7 @@
         "My dad was into the law.",
         "I enjoy reading and being an activist."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -26594,7 +26594,7 @@
         "I like Cheetos.",
         "I went to school at New York University."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -27111,7 +27111,7 @@
         "My family owns a farm in West Virginia.",
         "I am a waiter in a restaurant."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [],
@@ -27137,7 +27137,7 @@
         "I have two pit bull dogs.",
         "I make 200,000 per year computer programming."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -27786,7 +27786,7 @@
         "I have a little brother who has autism.",
         "My little brother does not talk."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -27811,7 +27811,7 @@
         "I am short.",
         "I am 27 years old."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -28276,7 +28276,7 @@
         "I like the color blue.",
         "My favourite colour is blue."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -28462,7 +28462,7 @@
         "I have two dogs.",
         "I donate to charities by working for them for free."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -28614,7 +28614,7 @@
         "I am a big Buffalo Bills fan.",
         "I have season tickets."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -29197,7 +29197,7 @@
         "I have a husband.",
         "i know how to make pizza."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -29218,7 +29218,7 @@
         "I love the superhero the Flash.",
         "I like Robert Downey jr."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -29264,7 +29264,7 @@
         "I have a guitar and enjoy playing it.",
         "I like all music."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -29686,7 +29686,7 @@
         "I work in cinema.",
         "I drink a lot of water."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -29737,7 +29737,7 @@
         "My mother is an immigrant from Saudi Arabia.",
         "I am female."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -30590,7 +30590,7 @@
         "I have never been married before.",
         "I like corgis."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -31984,7 +31984,7 @@
         "I volunteer in the PTA, book, and brunch clubs.",
         "I want to be a clothes designer."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -32002,7 +32002,7 @@
         "My cat does not need a leash.",
         "I want a pet lemur."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -32081,7 +32081,7 @@
         "I like rap and barbershop music.",
         "I don't like country music."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -32697,7 +32697,7 @@
         "I no longer camp.",
         "I have a wood shop outside."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -32715,7 +32715,7 @@
         "I go to school.",
         "I use an Android phone."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -32795,7 +32795,7 @@
         "My hair is gray, but used to be blond.",
         "I have 5 grandsons I love."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -33244,7 +33244,7 @@
         "I don't care about Mexican food.",
         "I like asian tacos."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -33679,7 +33679,7 @@
         "I do not have any cats currently.",
         "I miss my cats."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -34023,7 +34023,7 @@
         "I have a vast collection of video games.",
         "I like to play video games."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -34174,7 +34174,7 @@
         "I live in Pittsburgh.",
         "My favorite band is the Red Hot Chili Peppers."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -36510,7 +36510,7 @@
         "My plan is to buy a luxurious car.",
         "I am good at my job."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -36540,7 +36540,7 @@
         "I am a lumberjack.",
         "I love pancakes and syrup."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -36626,7 +36626,7 @@
         "I love music and going to shows.",
         "Heavy metal is my favorite music."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -36701,7 +36701,7 @@
         "I work for a newspaper.",
         "I am single."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -36972,7 +36972,7 @@
         "I was a kid actor.",
         "I was on Sesame Street."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -37310,7 +37310,7 @@
         "I want to teach English.",
         "I love kids."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -37396,7 +37396,7 @@
         "I like mexican food.",
         "I am a democrat."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -37799,7 +37799,7 @@
         "I enjoy going out for drinks with my friends.",
         "I live in Detroit."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -37988,7 +37988,7 @@
         "I had urinary cancer when I was 18.",
         "I live healthy."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -38155,7 +38155,7 @@
         "I am taking college courses.",
         "I am a full-time student."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -38556,7 +38556,7 @@
         "I have a 16 year old son.",
         "I am divorced."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -38625,7 +38625,7 @@
         "I have a dog named Mack.",
         "I wish I had money to travel."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -38822,7 +38822,7 @@
         "I like eating pizza and meats.",
         "I work as a capenter."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -39043,7 +39043,7 @@
         "I have a long distance relationship.",
         "I work for an airline and travel a lot."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -39156,7 +39156,7 @@
         "I love walking the beach, sailing, reading, and tennis.",
         "I eat fish."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -39971,7 +39971,7 @@
         "I like sports.",
         "I like the green bay packers."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -40140,7 +40140,7 @@
         "My favorite color is black.",
         "I am 44 years old."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -40268,7 +40268,7 @@
         "I live with my dad.",
         "I do not like confrontation."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -40526,7 +40526,7 @@
         "I am a car salesman.",
         "I own a bunch of cars."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -40542,7 +40542,7 @@
         "I can eat pizza.",
         "My wife is studying to be a nurse."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -41085,7 +41085,7 @@
         "I like drinking wine.",
         "I feel sad about the death of my husband."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -41183,7 +41183,7 @@
         "My daughers are 16 and 17.",
         "I get road rage and can also drive."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -41208,7 +41208,7 @@
         "I am a baseball player.",
         "I like to play with my kids."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -41463,7 +41463,7 @@
         "I read suspense books.",
         "I love reading Charles Dickens and Goosebumps."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -41668,7 +41668,7 @@
         "I don't have a dog.",
         "I love fishing."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -41968,7 +41968,7 @@
         "My parents are both lawyers.",
         "I want to follow my parents' career."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -42727,7 +42727,7 @@
         "I like to run to music.",
         "I like dance music."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -42882,7 +42882,7 @@
         "I enjoy drawing.",
         "I freelance."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -43183,7 +43183,7 @@
         "I love dancing and hamburgers.",
         "I am lactose intolerant."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -43658,7 +43658,7 @@
         "I love candle making.",
         "I love having my back scratched."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -43703,7 +43703,7 @@
         "I love French gardens.",
         "I also visited France."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -43818,7 +43818,7 @@
         "My parents are visiting me.",
         "I am a business administration major."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -45197,7 +45197,7 @@
         "I am willing to do a roof.",
         "I am interested in football."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -46007,7 +46007,7 @@
         "I am a Doctor.",
         "I enjoy vacations at the beach."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -46888,7 +46888,7 @@
         "I like soccer.",
         "I am an accountant."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -47263,7 +47263,7 @@
         "I'm also a night owl.",
         "I stay up watching tv at night."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -47426,7 +47426,7 @@
         "I am busy with house projects.",
         "I swim for fun."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -47665,7 +47665,7 @@
         "I'm not a big Elvis fan.",
         "I like to listen to Ray Charles."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -47728,7 +47728,7 @@
         "My parents are creative.",
         "My dad supports my music career."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -49889,7 +49889,7 @@
         "I love my family.",
         "I like mexican food."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -49925,7 +49925,7 @@
         "I am a professional weight lifter.",
         "I love All American Rejects."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -49940,7 +49940,7 @@
         "I work in finance.",
         "I graduated from a ivy league."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -50478,7 +50478,7 @@
         "I didn't spend much time with my mom because of her cancer.",
         "My mom had cancer when I was young."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -50698,7 +50698,7 @@
         "I do not drive.",
         "I never had a father figure in my life."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -50779,7 +50779,7 @@
         "I grew up in Chicago.",
         "I now live in Florida."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -50801,7 +50801,7 @@
         "I workout a lot.",
         "I dream of playing pro football after college."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -50914,7 +50914,7 @@
         "I live in Miami, Florida.",
         "I like to eat fish and I am a good fisherman."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -51263,7 +51263,7 @@
         "I like steal well-done.",
         "I own a truck."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -52040,7 +52040,7 @@
         "I like whipped cream but I'm trying to avoid it.",
         "I don't speak any foreign languages."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -52298,7 +52298,7 @@
         "My mom is from Saudi Arabia.",
         "I am a woman."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -52347,7 +52347,7 @@
         "I need more uniforms for my high school band performance I have.",
         "I play clarinet."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -52836,7 +52836,7 @@
         "Gardening is my hobby.",
         "I like black coffee."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -54142,7 +54142,7 @@
         "I work at a law firm.",
         "I like classical music and Wine."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -54161,7 +54161,7 @@
         "I like to watch Broadway.",
         "I like to travel and interview people."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -54557,7 +54557,7 @@
         "im in a relationship.",
         "i like to go to clubs."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -54835,7 +54835,7 @@
         "I love music.",
         "I love all animals."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -54911,7 +54911,7 @@
         "I enjoy country music.",
         "I like garth brooks."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -55255,7 +55255,7 @@
         "I love to bake things and would like to open a bakery.",
         "I have one sister and a niece and nephew."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -55277,7 +55277,7 @@
         "I enjoy going outside.",
         "I teach 5th grade students near oakville, ny."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -55358,7 +55358,7 @@
         "I don't have kids as well.",
         "I like shopping."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -55381,7 +55381,7 @@
         "I play softball recreationally.",
         "I cannot take time away from my spouse and kids."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -56180,7 +56180,7 @@
         "I like fantasy fiction.",
         "I like paranormal fantasy fiction."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -56249,7 +56249,7 @@
         "My parents are teachers.",
         "I want to be a history teacher."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -56387,7 +56387,7 @@
         "I have purple hair.",
         "I play basketball."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -56752,7 +56752,7 @@
         "I am in LA.",
         "I live in a big city."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -56973,7 +56973,7 @@
         "I like cake.",
         "I cannot afford to dye my hair."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -57235,7 +57235,7 @@
         "I love designer french fries.",
         "My favorite band is up."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -57495,7 +57495,7 @@
         "I want to learn about American culture.",
         "I have a baby brother."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -57594,7 +57594,7 @@
         "I like being at the ocean.",
         "I like helping people."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -57846,7 +57846,7 @@
         "I enjoy working.",
         "My parents do not go to church."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -57975,7 +57975,7 @@
         "I am studying dental.",
         "There are thorns tattooed on my toes."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -58480,7 +58480,7 @@
         "I have a harsh inner critic.",
         "I like brown hair."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -59210,7 +59210,7 @@
         "My girl friend lives in the condo next door.",
         "I am retired."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -59433,7 +59433,7 @@
         "My parents watch me play baseball.",
         "I am an only child."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -59474,7 +59474,7 @@
         "I am married.",
         "I have 10 nieces and nephews."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -60271,7 +60271,7 @@
         "My favorite color is red.",
         "I do carpentry as a job and as a hobby."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -60492,7 +60492,7 @@
         "I have a rich husband.",
         "I have kids."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -61642,7 +61642,7 @@
         "I am a loner.",
         "I have one friend."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -62009,7 +62009,7 @@
         "I do not eat meat.",
         "I love fruit and vegetables."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -62620,7 +62620,7 @@
         "I retire  in five years.",
         "I am a mall cop."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -62809,7 +62809,7 @@
         "My friend once bought me a car.",
         "I have a cold."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -62917,7 +62917,7 @@
         "I like Dostoevsky.",
         "I've been married for 8 years."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -65137,7 +65137,7 @@
         "I love watching TV.",
         "I like to eat ham and Swiss cheese sandwiches."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -65552,7 +65552,7 @@
         "I like music and cheese tasting.",
         "I would like to go rock climbing before I am age 46."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -65693,7 +65693,7 @@
         "I cannot drive.",
         "I live an hour away from the beach."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -65930,7 +65930,7 @@
         "I study dance.",
         "I don't know how to swim."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -66356,7 +66356,7 @@
         "I am from Texas.",
         "I love roses."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -66672,7 +66672,7 @@
         "My dad is a doctor.",
         "I play college football."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -67263,7 +67263,7 @@
         "I have a chihuahua that runs while I ride.",
         "I have a small apartment."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -67354,7 +67354,7 @@
         "I broke my arm skiing.",
         "I have a pet."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -67389,7 +67389,7 @@
         "My favorite number is 7.",
         "I am deaf."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -67446,7 +67446,7 @@
         "I work at the North Dakota State Hospital.",
         "I read a lot of fiction, mostly sci fi."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -69534,7 +69534,7 @@
         "I like to party.",
         "I get along with my family."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -69821,7 +69821,7 @@
         "I do not have a favorite superhero.",
         "I work for Del Taco as a researcher."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -70183,7 +70183,7 @@
         "I am self employed.",
         "I started a book selling business."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -70450,7 +70450,7 @@
         "I am 55 years old.",
         "I don't work currently."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -70628,7 +70628,7 @@
         "I enjoy sushi and tacos.",
         "I am going to Italy."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -70792,7 +70792,7 @@
         "I am a baker.",
         "I like Greek food."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -71041,7 +71041,7 @@
         "I love swimming.",
         "I love working out."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -71171,7 +71171,7 @@
         "I have been to Japan.",
         "I wasn't born in Japan."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -71727,7 +71727,7 @@
         "I am a travel agent.",
         "The Caribbean Islands are my favorite."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -71836,7 +71836,7 @@
         "My children are in their 20s and 30s.",
         "I got married at 16 and my wife likes to garden."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -71916,7 +71916,7 @@
         "I love mexican food.",
         "I prefer soft shell tacos, to hard."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -71970,7 +71970,7 @@
         "I am a teacher.",
         "I like meat lovers pizza."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -72597,7 +72597,7 @@
         "I like my job.",
         "I have a girl."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -72790,7 +72790,7 @@
         "I like to cook.",
         "I am a really good cook."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -72802,7 +72802,7 @@
         "I drive a lexus.",
         "I am in college."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
@@ -73125,7 +73125,7 @@
         "I like cats.",
         "I like to go to the beach and collect shells."
       ],
-      "in_dataset": 0
+      "in_dataset": 1
     },
     {
       "Speaker 1": [
