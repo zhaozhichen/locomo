@@ -3,6 +3,11 @@
 
 **Paper**: [pdf](https://github.com/snap-research/locomo/tree/main/static/paper/locomo.pdf)
 
+# Notes
+
+1. This project only (and always) uses Gemini for all LLM calls. Add your Gemini API Key to scripts/env.sh
+2. It supports multi-agent conversation (more than two agents).
+
 ## Data
 
 We release LoCoMo, a high-quality evaluation benchmark consisting of *very* long-term conversational data. The benchmark consists of ten conversations. Each conversation is annotated for the **question-answering** and **event-summarization** tasks. Additionally, the dialogs in each conversation can be used for the **multimodal-dialog-generation** task. See statistics of the dataset in the Table below.
