@@ -1,3 +1,6 @@
 # Ignore all example* and group_example_* directories under data/multimodal_dialog
 /data/multimodal_dialog/example*/
 /data/multimodal_dialog/group_example_*/ 
+
+# Ignore Gemini API key secret file
+.gemini_api_key 
