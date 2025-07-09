@@ -117,23 +117,19 @@ def run_gemini(model, content: str, max_tokens: int = 0, max_retries: int = 3, b
         except Exception as e:
             error_type = type(e).__name__
             error_msg = str(e)
-            
-            # Check for specific error types that should trigger retries
+            # Exponential backoff with cap at 1024s and jitter
             should_retry = any(keyword in error_msg.lower() for keyword in [
                 'deadline exceeded', '504', 'timeout', 'rate limit', 'quota', 
                 'resource exhausted', 'unavailable', 'internal error'
             ])
-            
             if attempt < max_retries and should_retry:
-                # Exponential backoff with jitter
-                wait_time = base_wait_time * (2 ** attempt) + random.uniform(0, 1)
+                wait_time = min(1024, base_wait_time * (2 ** attempt)) + random.uniform(0, 1)
                 print(f'Gemini API error on attempt {attempt + 1}/{max_retries + 1}: {error_type}: {error_msg}')
                 print(f'Retrying in {wait_time:.2f} seconds...')
                 time.sleep(wait_time)
             else:
                 print(f'Gemini API error (final attempt): {error_type}: {error_msg}')
                 return None
-    
     return None
 
 
