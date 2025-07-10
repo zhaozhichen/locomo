@@ -10,3 +10,6 @@ icrawler
 numpy
 tiktoken
 requests
+torch
+torchvision
+torchaudio
